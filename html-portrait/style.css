@@ -4,6 +4,13 @@ body {
   height: 100vh;
 }
 
+body#page3 {
+  background-image: url("assets/bg.gif");
+  background-size: cover;
+  height: 100vh;
+}
+
+
 img {
   height: 150px;
   border-radius: 20px;
@@ -37,6 +44,10 @@ a {
 
 #p1 {
   animation: coolAnimation 5s infinite;
+}
+
+#p2 {
+  animation: coolAnimation 4s infinite
 }
 
 @keyframes coolAnimation {
