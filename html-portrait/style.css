@@ -21,7 +21,7 @@ img {
 }
 
 img:hover {
-  height: 400px;
+  height: 200px;
   filter: grayscale(0%);
   /*   border: 1px solid red; */
 }
