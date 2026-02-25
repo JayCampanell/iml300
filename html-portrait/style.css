@@ -1,7 +1,13 @@
+@font-face{
+  font-family: "Pixel";
+  src: url("/Users/jaycampanell/Documents/iml 300/iml300/html-portrait/assets/CoralPixels-Regular.ttf") format("ttf");
+}
+
 body {
   background-image: url("assets/sky.gif");
   background-size: cover;
   height: 100vh;
+  font-family: Pixel;
 }
 
 body#page3 {
@@ -16,15 +22,30 @@ img {
   border-radius: 20px;
   padding: 10px;
   transition: 1s;
-  filter: grayscale(100%);
+  /*filter: grayscale(100%);
   /*      border: 3px solid blue; */
 }
 
-img:hover {
+#img_gray {
+  height: 200px;
+  border-radius: 10px;
+  padding: 0px;
+  transition: 1s;
+  filter: grayscale(100%);
+}
+
+#img_gray:hover {
+  border-radius: 200px;
+  filter: grayscale(0%)
+}
+/*img:hover {
   height: 200px;
   filter: grayscale(0%);
-  /*   border: 1px solid red; */
-}
+  /*   border: 1px solid red; 
+  }
+*/
+
+
 
 p:hover {
   /*   transform: rotate(5deg); */
@@ -54,6 +75,7 @@ a {
   animation: coolAnimation 2s infinite;
 }
 
+
 @keyframes coolAnimation {
   0% {
     color: orange;
@@ -65,3 +87,35 @@ a {
     color: black;
   }
 }
+
+#sliding-paragraph {
+  height: 300px;
+  font-family: pixel
+}
+/*
+.slide-in .slide-out{
+  display: block;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+
+}
+
+.slide-in {
+  opacity: 0;
+  -webkit-transform: translate(.25vw,0);
+}
+*/
+#sliding-paragraph:hover {
+  letter-spacing: normal;
+}
+
+/*
+#sliding-paragraph:hover .slide-in {
+  letter-spacing: normal;
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+  color: green;
+}
+
+
