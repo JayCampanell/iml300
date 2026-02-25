@@ -28,7 +28,7 @@ img:hover {
 
 p:hover {
   /*   transform: rotate(5deg); */
-  letter-spacing: 1em;
+  letter-spacing: 0.5em;
 }
 
 .specialCenter {
@@ -50,14 +50,18 @@ a {
   animation: coolAnimation 4s infinite
 }
 
+#p3 {
+  animation: coolAnimation 2s infinite;
+}
+
 @keyframes coolAnimation {
   0% {
-    color: red;
+    color: orange;
   }
   50% {
     color: green;
   }
   100% {
-    color: blue;
+    color: black;
   }
 }
