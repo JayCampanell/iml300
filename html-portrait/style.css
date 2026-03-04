@@ -1,19 +1,24 @@
-@font-face{
-  font-family: "Pixel";
-  src: url("/Users/jaycampanell/Documents/iml 300/iml300/html-portrait/assets/CoralPixels-Regular.ttf") format("ttf");
+/* coral-pixels-regular - latin_latin-ext */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Coral Pixels';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/coral-pixels-v1-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 body {
   background-image: url("assets/sky.gif");
   background-size: cover;
   height: 100vh;
-  font-family: Pixel;
+  font-family: 'Courier New', monospace;
 }
 
 body#page3 {
   background-image: url("assets/bg.gif");
   background-size: cover;
   height: 100vh;
+  font-family: "Coral Pixels";
 }
 
 
@@ -90,7 +95,7 @@ a {
 
 #sliding-paragraph {
   height: 300px;
-  font-family: pixel
+  font-family: Coral Pixels
 }
 /*
 .slide-in .slide-out{

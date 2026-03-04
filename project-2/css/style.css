@@ -1,0 +1,150 @@
+@font-face{
+    font-family: Lora;
+    src: url(../assets/Lora.woff2) format(woff2);
+}
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Coral Pixels';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/coral-pixels-v1-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+body{
+    font-family: Lora;
+    background-size: cover;
+}
+
+h1{
+    font-family: 'Coral Pixels';
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.center h1{
+    font-family: Lora;
+}
+
+.center a{
+    color: initial;
+    text-decoration: none;
+}
+
+.center a:hover{
+    font-family: 'Coral Pixels';
+}
+
+a{
+    color: initial;
+    text-decoration: none;
+}
+
+a:hover{
+    font-family: "Coral Pixels";
+    background-color: yellow;
+}
+
+
+.blur{
+    filter: blur(2.5px);
+    transition: filter 0.6s ease;
+}
+
+.blur:hover{
+    filter:blur(.5px)
+}
+
+.change{
+    position: relative;
+    overflow: hidden;
+    width: 50%;
+    height:30vh;
+}
+
+.change img{
+    position: absolute;
+    object-fit: cover;
+    transition: 
+        opacity .6s ease,
+        filter .6s ease,
+        transform .6s ease;
+    overflow: hidden
+}
+
+.start_img {
+    width: 100%;
+    height:30vh;
+    opacity: 1;
+    filter: grayscale(1) blur(.8px)
+}
+
+.end_img{
+    width:100%;
+    opacity: 0;
+    height:30vh;
+    transform: scale(1.05);
+}
+
+.change:hover .start_img{
+    opacity: 0;
+    height: 30vh;
+    filter: grayscale(1) blur(2px);
+}
+
+.change:hover .end_img{
+    opacity: 1;
+    height: 30vh;
+    transform: scale(1);
+}
+
+.img_choose{
+    position: relative;
+    top: 30vh;
+    filter: grayscale();
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.6s;
+    -webkit-transition-timing-function: ease-in-out;
+
+}
+
+.img_choose:hover{
+    filter: grayscale(0);
+    transform: scale(1.2);
+}
+
+.in-line{
+    display:inline-block
+}
+
+/* Typewriter code from this website: https://css-tricks.com/snippets/css/typewriter-effect/*/
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid black; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0% }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: black; }
+}
