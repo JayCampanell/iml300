@@ -13,6 +13,7 @@
 body{
     font-family: Lora;
     background-size: cover;
+    cursor: url("../assets/cursor.webp");
 }
 
 h1{
@@ -65,9 +66,6 @@ a:hover{
 
 .change{
     position: relative;
-    overflow: hidden;
-    width: 50%;
-    height:30vh;
 }
 
 .change img{
@@ -77,33 +75,29 @@ a:hover{
         opacity .6s ease,
         filter .6s ease,
         transform .6s ease;
-    overflow: hidden
 }
 
 .start_img {
     width: 100%;
-    height:30vh;
     opacity: 1;
-    filter: grayscale(1) blur(.8px)
+    filter: grayscale(1) blur(2px)
 }
 
 .end_img{
     width:100%;
     opacity: 0;
     height:30vh;
-    transform: scale(1.05);
 }
 
 .change:hover .start_img{
     opacity: 0;
     height: 30vh;
-    filter: grayscale(1) blur(2px);
+    filter: grayscale(1) blur(6px);
 }
 
 .change:hover .end_img{
     opacity: 1;
     height: 30vh;
-    transform: scale(1);
 }
 
 .img_choose{
