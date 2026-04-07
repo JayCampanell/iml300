@@ -1,0 +1,92 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #eee3d6; overflow: hidden; cursor: crosshair; 
+               background-image: url('la_map.webp');
+               background-size: 85% 100%;
+               background-repeat: no-repeat;
+               background-position: center;}
+  #wrap { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+  #map-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  
+  /* Background Canvas Grain */
+  #grain { 
+    position: absolute; inset: 0; width: 100%; height: 100%; 
+    pointer-events: none; z-index: 2; 
+  }
+  
+  /* DOM Container for HTML/CSS Memories */
+  #mems { 
+    position: absolute; inset: 0; width: 100%; height: 100%; 
+    pointer-events: none; z-index: 3; 
+  }
+
+  /* Memory Circle Styles */
+  .memory {
+    transform: scale(1);
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(0);
+    transition: width 0.4s cubic-bezier(0.1, 0.8, 0.2, 1), 
+                height 0.4s cubic-bezier(0.1, 0.8, 0.2, 1), 
+                transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1),
+                scale 0.3s ease-in;
+    
+    /* Recreating the inner gradient */
+    background: radial-gradient(circle, 
+      rgba(252,192,58,0.88) 0%, 
+      rgba(234,152,24,0.76) 38%, 
+      rgba(198,108,16,0.60) 72%, 
+      rgba(155,72,8,0) 100%);
+    
+    /* Recreating the outer glow and the border ring */
+    box-shadow: inset 0 0 0 1.5px rgba(205,138,28,0.14),
+                0 0 calc(var(--r) * 0.7px) calc(var(--r) * 0.7px) rgba(225,148,35,0.10);
+    
+    transition: transform 0.3s ease-in;
+  }
+
+  /* Recreating the inner circle grain with a CSS SVG noise filter */
+  .memory::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    clip-path: circle(46% at 50% 50%); /* Keeps the noise localized to the core */
+  }
+  .memory:hover{
+    scale: 1.2
+  }
+
+  #mems:hover{
+    scale: 100px
+  }
+  /* UI Styles */
+  .ui-title { position: absolute; top: 28px; left: 32px; z-index: 10; pointer-events: none; }
+  .ui-title h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-style: italic; 
+    font-size: 24px; color: #18160f; letter-spacing: 0.02em; line-height: 1.3;
+  }
+  .ui-title p {
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 10px; 
+    color: #706a60; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px;
+  }
+  .ui-hint {
+    position: absolute; bottom: 24px; right: 28px; z-index: 10; pointer-events: none;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-style: italic; 
+    font-size: 12px; color: #a09890; letter-spacing: 0.06em;
+  }
+  #count {
+    position: absolute; bottom: 24px; left: 32px; z-index: 10; pointer-events: none;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 12px; 
+    color: #a09890; letter-spacing: 0.08em;
+  }
+  #clear {
+    position: absolute; top: 28px; right: 32px; z-index: 10;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 10px; 
+    letter-spacing: 0.16em; text-transform: uppercase; color: #a09890; background: none;
+    border: 0.5px solid #c8c2b8; padding: 6px 14px; cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  #clear:hover { color: #2a2820; border-color: #a09890; }

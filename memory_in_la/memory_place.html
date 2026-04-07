@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Memory & Place — Los Angeles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel = "stylesheet" href = 'style1.css'>
+</head>
+<body>
+<div id="wrap">
+
+<canvas id="grain"></canvas>
+
+<div id="mems"></div>
+
+<div class="ui-title">
+  <h1>memory &amp; place</h1>
+  <p>Los Angeles</p>
+</div>
+<div class="ui-hint">click to leave a memory</div>
+<div id="count"></div>
+<button id="clear">clear</button>
+
+</div>
+
+<script>
+(function() {
+  const wrap = document.getElementById('wrap');
+  const gc = document.getElementById('grain');
+  const gx = gc.getContext('2d');
+  
+  const memsContainer = document.getElementById('mems');
+  const countEl = document.getElementById('count');
+  const clearBtn = document.getElementById('clear');
+
+  const memories = [];
+  const CLUSTER_R = 80;
+  let total = 0, grainFrame = 0;
+
+  // Handles responsive canvas size
+  function resize() {
+    gc.width = wrap.offsetWidth; 
+    gc.height = wrap.offsetHeight;
+  }
+
+  // Purely handles the background static
+  function drawGrain() {
+    const w = gc.width, h = gc.height;
+    const id = gx.createImageData(w, h);
+    const d = id.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const v = Math.random() * 255;
+      d[i] = v; d[i+1] = v; d[i+2] = v;
+      d[i+3] = Math.random() * 16 + 3;
+    }
+    gx.putImageData(id, 0, 0);
+  }
+
+  // Main animation loop (now exclusively handles background grain)
+  function loop() {
+    grainFrame++;
+    if (grainFrame % 3 === 0) drawGrain();
+    requestAnimationFrame(loop);
+  }
+
+  // Searches memory coordinates for grouping overlaps
+  function findCluster(x, y) {
+    for (let m of memories) {
+      const dx = m.x - x, dy = m.y - y;
+      if (Math.sqrt(dx*dx + dy*dy) < CLUSTER_R) return m;
+    }
+    return null;
+  }
+
+  // Handle map interaction
+  wrap.addEventListener('click', function(e) {
+    if (e.target === clearBtn) return;
+    
+    const rect = wrap.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    const ex = findCluster(x, y);
+    
+    if (ex) {
+      // Scale existing circle
+      ex.r = Math.min(ex.r + 26, 200);
+      
+      // Update DOM element directly via styles and CSS Variables
+      ex.el.style.width = (ex.r * 2) + 'px';
+      ex.el.style.height = (ex.r * 2) + 'px';
+      ex.el.style.setProperty('--r', ex.r);
+    } else {
+      // Create a brand new DOM memory node
+      const m = { x, y, r: 32 };
+      const el = document.createElement('div');
+      el.className = 'memory';
+      
+      // Positioning and establishing custom variables for the CSS gradients
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.width = (m.r * 2) + 'px';
+      el.style.height = (m.r * 2) + 'px';
+      el.style.setProperty('--r', m.r);
+      
+      memsContainer.appendChild(el);
+      
+      // Force a reflow so the browser registers the initial 0-scale state
+      void el.offsetWidth;
+      
+      // Trigger the pop-in CSS transition
+      el.style.transform = 'translate(-50%, -50%) scale(1)';
+      
+      m.el = el;
+      memories.push(m);
+    }
+    
+    total++;
+    countEl.textContent = total === 1 ? '1 memory placed' : total + ' memories placed';
+  });
+
+  // Clear interaction
+  clearBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    memories.length = 0; 
+    total = 0; 
+    countEl.textContent = '';
+    memsContainer.innerHTML = '';
+  });
+
+  // Boot sequence
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
