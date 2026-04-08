@@ -1,0 +1,74 @@
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Coral Pixels';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/coral-pixels-v1-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+body {
+  background-image: url("assets/sky.gif");
+  background-size: cover;
+  height: 100vh;
+  font-family: 'Coral Pixels';
+}
+#floor {
+    position: absolute;
+    margin-top: 45vh;
+    margin-left: 15vw;
+    z-index: 1;
+}
+
+#poster {
+    position: absolute;
+    margin-top: 32vh;
+    margin-left: 14vw
+}
+
+#poster-img {
+    width: 8vw;
+    transform:  perspective(500px) rotateY(63deg) rotateZ(-20deg)
+}
+
+#chair{
+    position: absolute;
+    margin-top: 49vh;
+    margin-left: 58vw;
+    z-index:2
+    
+}
+#chair-img{
+    width: 12vw;
+    transform: scaleX(-1);
+}
+#table{
+    position: absolute;
+    margin-top: 35vh;
+    margin-left: 29vw;
+    z-index: 2
+}
+#table-img {
+    width: 21vw;
+    transform:perspective(500px) scaleX(-1)
+}
+#clock{
+    position: absolute;
+    margin-top: 12vh;
+    margin-left: 45vw;
+    z-index: 2
+}
+#clock-img {
+    width: 7vw;
+    transform:perspective(500px) rotateY(-12deg)
+}
+#room {
+    position: relative;
+}
+
+#clock img:hover,
+#table img:hover,
+#chair img:hover,
+#poster img:hover
+    {
+        rotate: 5deg
+    }
