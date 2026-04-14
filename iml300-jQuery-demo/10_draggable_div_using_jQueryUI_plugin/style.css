@@ -1,0 +1,7 @@
+#my-special-div {
+    position: fixed;
+    background: cyan;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+}

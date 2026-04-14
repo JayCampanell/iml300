@@ -1,0 +1,24 @@
+body {
+  background-color: lime;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  transition: 0.5 ease-out;
+}
+
+.bigger {
+  width: 400px;
+  height: 400px;
+  transition: 0.5s ease-in;
+}
+
+#hidden {
+  opacity: 0;
+}
+
+.show {
+    opacity: 1;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}

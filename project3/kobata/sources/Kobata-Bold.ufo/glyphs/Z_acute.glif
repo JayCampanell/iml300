@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Zacute" format="2">
+	<advance width="600"/>
+	<unicode hex="0179"/>
+	<anchor x="300" y="400" name="center"/>
+	<anchor x="300" y="0" name="bottom"/>
+	<anchor x="300" y="800" name="top"/>
+	<outline>
+		<contour>
+			<point x="50" y="800" type="line"/>
+			<point x="50" y="650" type="line"/>
+			<point x="400" y="650" type="line"/>
+			<point x="400" y="800" type="line"/>
+		</contour>
+		<contour>
+			<point x="50" y="300" type="line"/>
+			<point x="50" y="150" type="line"/>
+			<point x="200" y="150" type="line"/>
+			<point x="200" y="300" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="150" type="line"/>
+			<point x="200" y="0" type="line"/>
+			<point x="550" y="0" type="line"/>
+			<point x="550" y="150" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="400" type="line"/>
+			<point x="200" y="300" type="line"/>
+			<point x="300" y="300" type="line"/>
+			<point x="300" y="400" type="line"/>
+		</contour>
+		<contour>
+			<point x="300" y="500" type="line"/>
+			<point x="300" y="400" type="line"/>
+			<point x="400" y="400" type="line"/>
+			<point x="400" y="500" type="line"/>
+		</contour>
+		<contour>
+			<point x="400" y="650" type="line"/>
+			<point x="400" y="500" type="line"/>
+			<point x="550" y="500" type="line"/>
+			<point x="550" y="650" type="line"/>
+		</contour>
+		<component base="acutecomb" xOffset="488" yOffset="300"/>
+	</outline>
+</glyph>

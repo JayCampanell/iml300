@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="iacute_j.loclNLD" format="2">
+	<advance width="685"/>
+	<outline>
+		<contour>
+			<point x="385" y="400" type="line"/>
+			<point x="385" y="-100" type="line"/>
+			<point x="535" y="-100" type="line"/>
+			<point x="535" y="400" type="line"/>
+		</contour>
+		<contour>
+			<point x="235" y="-100" type="line"/>
+			<point x="235" y="-200" type="line"/>
+			<point x="385" y="-200" type="line"/>
+			<point x="385" y="-100" type="line"/>
+		</contour>
+		<contour>
+			<point x="50" y="400" type="line"/>
+			<point x="50" y="0" type="line"/>
+			<point x="200" y="0" type="line"/>
+			<point x="200" y="400" type="line"/>
+		</contour>
+		<contour>
+			<point x="50" y="600" type="line"/>
+			<point x="50" y="500" type="line"/>
+			<point x="200" y="500" type="line"/>
+			<point x="200" y="600" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="700" type="line"/>
+			<point x="200" y="600" type="line"/>
+			<point x="350" y="600" type="line"/>
+			<point x="350" y="700" type="line"/>
+		</contour>
+		<contour>
+			<point x="385" y="600" type="line"/>
+			<point x="385" y="500" type="line"/>
+			<point x="535" y="500" type="line"/>
+			<point x="535" y="600" type="line"/>
+		</contour>
+		<contour>
+			<point x="535" y="700" type="line"/>
+			<point x="535" y="600" type="line"/>
+			<point x="685" y="600" type="line"/>
+			<point x="685" y="700" type="line"/>
+		</contour>
+	</outline>
+</glyph>

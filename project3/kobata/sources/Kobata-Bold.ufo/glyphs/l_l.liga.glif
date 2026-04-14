@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="l_l.liga" format="2">
+	<advance width="751"/>
+	<outline>
+		<contour>
+			<point x="426" y="700" type="line"/>
+			<point x="426" y="150" type="line"/>
+			<point x="576" y="150" type="line"/>
+			<point x="576" y="700" type="line"/>
+		</contour>
+		<contour>
+			<point x="201" y="150" type="line"/>
+			<point x="201" y="0" type="line"/>
+			<point x="376" y="0" type="line"/>
+			<point x="376" y="150" type="line"/>
+		</contour>
+		<contour>
+			<point x="51" y="700" type="line"/>
+			<point x="50" y="150" type="line"/>
+			<point x="201" y="150" type="line"/>
+			<point x="201" y="700" type="line"/>
+		</contour>
+		<contour>
+			<point x="576" y="150" type="line"/>
+			<point x="576" y="0" type="line"/>
+			<point x="751" y="0" type="line"/>
+			<point x="751" y="150" type="line"/>
+		</contour>
+	</outline>
+	<lib>
+		<dict>
+			<key>com.schriftgestaltung.Glyphs.leftMetricsKey</key>
+			<string>l</string>
+			<key>com.schriftgestaltung.Glyphs.rightMetricsKey</key>
+			<string>l</string>
+		</dict>
+	</lib>
+</glyph>

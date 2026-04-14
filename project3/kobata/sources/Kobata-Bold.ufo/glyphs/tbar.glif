@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="tbar" format="2">
+	<advance width="600"/>
+	<unicode hex="0167"/>
+	<outline>
+		<contour>
+			<point x="350" y="500" type="line"/>
+			<point x="350" y="350" type="line"/>
+			<point x="550" y="350" type="line"/>
+			<point x="550" y="500" type="line"/>
+		</contour>
+		<contour>
+			<point x="100" y="275" type="line"/>
+			<point x="100" y="175" type="line"/>
+			<point x="200" y="175" type="line"/>
+			<point x="200" y="275" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="175" type="line"/>
+			<point x="200" y="100" type="line"/>
+			<point x="350" y="100" type="line"/>
+			<point x="350" y="175" type="line"/>
+		</contour>
+		<contour>
+			<point x="350" y="100" type="line"/>
+			<point x="350" y="0" type="line"/>
+			<point x="550" y="0" type="line"/>
+			<point x="550" y="100" type="line"/>
+		</contour>
+		<contour>
+			<point x="50" y="500" type="line"/>
+			<point x="50" y="350" type="line"/>
+			<point x="200" y="350" type="line"/>
+			<point x="200" y="500" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="350" type="line"/>
+			<point x="200" y="275" type="line"/>
+			<point x="350" y="275" type="line"/>
+			<point x="350" y="350" type="line"/>
+		</contour>
+		<contour>
+			<point x="350" y="275" type="line"/>
+			<point x="350" y="175" type="line"/>
+			<point x="500" y="175" type="line"/>
+			<point x="500" y="275" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="650" type="line"/>
+			<point x="200" y="500" type="line"/>
+			<point x="350" y="500" type="line"/>
+			<point x="350" y="650" type="line"/>
+		</contour>
+	</outline>
+</glyph>

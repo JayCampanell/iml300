@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="R" format="2">
+	<advance width="650"/>
+	<unicode hex="0052"/>
+	<anchor x="325" y="800" name="top"/>
+	<anchor x="325" y="0" name="bottom"/>
+	<outline>
+		<contour>
+			<point x="50" y="700" type="line"/>
+			<point x="50" y="450" type="line"/>
+			<point x="200" y="450" type="line"/>
+			<point x="200" y="700" type="line"/>
+		</contour>
+		<contour>
+			<point x="50" y="350" type="line"/>
+			<point x="50" y="0" type="line"/>
+			<point x="200" y="0" type="line"/>
+			<point x="200" y="350" type="line"/>
+		</contour>
+		<contour>
+			<point x="450" y="250" type="line"/>
+			<point x="450" y="0" type="line"/>
+			<point x="600" y="0" type="line"/>
+			<point x="600" y="250" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="450" type="line"/>
+			<point x="200" y="350" type="line"/>
+			<point x="300" y="350" type="line"/>
+			<point x="300" y="450" type="line"/>
+		</contour>
+		<contour>
+			<point x="300" y="350" type="line"/>
+			<point x="300" y="250" type="line"/>
+			<point x="450" y="250" type="line"/>
+			<point x="450" y="350" type="line"/>
+		</contour>
+		<contour>
+			<point x="300" y="550" type="line"/>
+			<point x="300" y="450" type="line"/>
+			<point x="450" y="450" type="line"/>
+			<point x="450" y="550" type="line"/>
+		</contour>
+		<contour>
+			<point x="200" y="800" type="line"/>
+			<point x="200" y="700" type="line"/>
+			<point x="450" y="700" type="line"/>
+			<point x="450" y="800" type="line"/>
+		</contour>
+		<contour>
+			<point x="450" y="700" type="line"/>
+			<point x="450" y="550" type="line"/>
+			<point x="600" y="550" type="line"/>
+			<point x="600" y="700" type="line"/>
+		</contour>
+	</outline>
+</glyph>

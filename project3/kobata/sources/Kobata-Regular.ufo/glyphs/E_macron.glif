@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Emacron" format="2">
+	<advance width="450"/>
+	<unicode hex="0112"/>
+	<outline>
+		<contour>
+			<point x="100" y="1000" type="line"/>
+			<point x="100" y="900" type="line"/>
+			<point x="400" y="900" type="line"/>
+			<point x="400" y="1000" type="line"/>
+		</contour>
+		<component base="E"/>
+	</outline>
+</glyph>

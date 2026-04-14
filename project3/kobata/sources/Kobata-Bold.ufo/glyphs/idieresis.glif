@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="idieresis" format="2">
+	<advance width="320"/>
+	<unicode hex="00EF"/>
+	<outline>
+		<component base="dotlessi" xOffset="20"/>
+		<component base="uni0308" xOffset="380" yOffset="-100"/>
+	</outline>
+	<lib>
+		<dict>
+			<key>com.schriftgestaltung.Glyphs.ComponentInfo</key>
+			<array>
+				<dict>
+					<key>alignment</key>
+					<integer>-1</integer>
+					<key>index</key>
+					<integer>0</integer>
+					<key>name</key>
+					<string>dotlessi</string>
+				</dict>
+			</array>
+		</dict>
+	</lib>
+</glyph>

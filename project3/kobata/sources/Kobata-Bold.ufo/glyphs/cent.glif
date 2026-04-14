@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cent" format="2">
+	<advance width="550"/>
+	<unicode hex="00A2"/>
+	<outline>
+		<contour>
+			<point x="275" y="350" type="line"/>
+			<point x="275" y="150" type="line"/>
+			<point x="375" y="150" type="line"/>
+			<point x="375" y="350" type="line"/>
+		</contour>
+		<contour>
+			<point x="150" y="150" type="line"/>
+			<point x="150" y="0" type="line"/>
+			<point x="275" y="0" type="line"/>
+			<point x="275" y="150" type="line"/>
+		</contour>
+		<contour>
+			<point x="275" y="0" type="line"/>
+			<point x="275" y="-100" type="line"/>
+			<point x="375" y="-100" type="line"/>
+			<point x="375" y="0" type="line"/>
+		</contour>
+		<contour>
+			<point x="50" y="350" type="line"/>
+			<point x="50" y="150" type="line"/>
+			<point x="150" y="150" type="line"/>
+			<point x="150" y="350" type="line"/>
+		</contour>
+		<contour>
+			<point x="375" y="150" type="line"/>
+			<point x="375" y="0" type="line"/>
+			<point x="500" y="0" type="line"/>
+			<point x="500" y="150" type="line"/>
+		</contour>
+		<contour>
+			<point x="150" y="500" type="line"/>
+			<point x="150" y="350" type="line"/>
+			<point x="275" y="350" type="line"/>
+			<point x="275" y="500" type="line"/>
+		</contour>
+		<contour>
+			<point x="275" y="600" type="line"/>
+			<point x="275" y="500" type="line"/>
+			<point x="375" y="500" type="line"/>
+			<point x="375" y="600" type="line"/>
+		</contour>
+		<contour>
+			<point x="375" y="500" type="line"/>
+			<point x="375" y="350" type="line"/>
+			<point x="500" y="350" type="line"/>
+			<point x="500" y="500" type="line"/>
+		</contour>
+	</outline>
+</glyph>

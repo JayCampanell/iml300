@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="iacute" format="2">
+	<advance width="328"/>
+	<unicode hex="00ED"/>
+	<guideline x="65" y="400" angle="90"/>
+	<outline>
+		<component base="dotlessi"/>
+		<component base="acutecomb" xOffset="328" yOffset="-100"/>
+	</outline>
+	<lib>
+		<dict>
+			<key>com.schriftgestaltung.Glyphs.ComponentInfo</key>
+			<array>
+				<dict>
+					<key>alignment</key>
+					<integer>-1</integer>
+					<key>index</key>
+					<integer>0</integer>
+					<key>name</key>
+					<string>dotlessi</string>
+				</dict>
+			</array>
+			<key>com.schriftgestaltung.Glyphs.leftMetricsKey</key>
+			<string>idotless</string>
+		</dict>
+	</lib>
+</glyph>

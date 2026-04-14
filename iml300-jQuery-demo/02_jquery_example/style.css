@@ -1,0 +1,39 @@
+body {
+    font-family: "Times New Roman";
+    height: 2000px;
+    margin: 20px;
+}
+
+div {
+    width: 200px;
+    height: 200px;
+    display:inline-block;
+    margin-right: 10px;
+}
+
+h1 {
+    font-size: 47px;
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+.green {
+    background-color: green;
+ }
+
+.blue {
+    background-color: blue;
+    left: 300px;
+    top: 150px;
+  }
+
+.red {
+    background-color: red;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    position: fixed;
+    top: 120px;
+    right: 15px;
+    cursor: pointer;
+}
