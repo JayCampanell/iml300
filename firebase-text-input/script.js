@@ -22,92 +22,102 @@ firebase.initializeApp(firebaseConfig);
 
 // firebase.initializeApp(firebaseConfig); // Make sure your config is at the top!
 
+// Make sure your firebase.initializeApp(firebaseConfig) is right here at the top!
+
 const db = firebase.database();
 let dbRef = db.ref("text");
 
-// Update this ID to whatever your container is called in your HTML 
-// (I used "memory-canvas" in the previous step, but "chat-container" works too as long as the CSS matches)
-let chatContainer = document.getElementById("chat-container"); 
-let entry = document.getElementById("text-input-entry");
-let share = document.getElementById("text-input-submit");
+let chatContainer = document.getElementById("chat-container");
+const etherealInput = document.getElementById("ethereal-input");
 
 // We need an array to keep track of all the floating memories
 const activeMemories = [];
+let fadeTimeout;
 
-// Listen for new data
+// --- Firebase Listener ---
 dbRef.on("child_added", gotText);
 
 function gotText(data) {
   let value = data.val();
   
-  // 1. Create the new memory element cleanly
   let mem = document.createElement("div");
-  mem.className = "memory"; // Make sure your CSS class is "memory" based on the previous update
+  mem.className = "memory";
   mem.innerHTML = `<p>${value}</p>`;
   
-  // 2. Initialize its unique floating properties
-  mem.x = Math.random() * (window.innerWidth - 300); 
-  mem.y = Math.random() * (window.innerHeight - 200);
-// Make the drift slightly faster
+  // Initialize properties for each firefly
+  mem.x = Math.random() * (window.innerWidth - 100); 
+  mem.y = Math.random() * (window.innerHeight - 100);
   mem.vx = (Math.random() - 0.5) * 2.5; 
   mem.vy = (Math.random() - 0.5) * 2.5;
-  
   mem.angle = Math.random() * Math.PI * 2; 
-  // Increase flutter speed for a "bug-like" buzz
   mem.flutterSpeed = 0.05 + Math.random() * 0.1;
   mem.isCaptured = false;
 
-  // 3. Attach the hover/net interaction directly to this specific element
+  // The Catch interaction
   mem.addEventListener('mouseenter', () => {
     mem.isCaptured = true;
     mem.classList.add('captured');
-    mem.style.transform = `translate(${mem.x}px, ${mem.y}px) scale(1.1) rotate(0deg)`;
   });
 
+  // The Release interaction
   mem.addEventListener('mouseleave', () => {
     mem.isCaptured = false;
     mem.classList.remove('captured');
   });
 
-  // 4. Add it to the screen and our tracking array
   chatContainer.appendChild(mem);
   activeMemories.push(mem);
 }
 
-// Click button will run this function
-share.addEventListener("click", submitText);
+// --- The Ethereal Input Logic ---
 
-function submitText() {
-  let textToSubmit = entry.value; 
+// 1. The Living Reaction: Flare up when typing
+etherealInput.addEventListener('input', () => {
+  etherealInput.classList.add('flare');
   
-  // Prevent empty blank memories from being submitted
-  if (textToSubmit.trim() === "") return; 
+  // Clear the old fade timer
+  clearTimeout(fadeTimeout);
   
-  let newKey = dbRef.push().key; 
-  let updates = {}; 
-  updates[newKey] = textToSubmit;
-  
-  // Wait for Firebase to update, then clear input and lock
-  dbRef.update(updates).then(() => {
-    entry.value = ""; 
-    submitlock(); 
-  });
-}
+  // 2. The Ephemeral Reaction: Fade if idle for 2 seconds
+  fadeTimeout = setTimeout(() => {
+    etherealInput.classList.remove('flare');
+  }, 2000); 
+});
 
-function submitlock() {
-  entry.remove();
-  share.value = "Thanks for telling me.";
-  share.disabled = true;
-  share.style.width = "70%";
-}
+// 3. The Release: Submit on 'Enter'
+etherealInput.addEventListener('keydown', (e) => {
+  // Check if the key pressed was 'Enter'
+  if (e.key === 'Enter') {
+    e.preventDefault(); // Stop the page from accidentally reloading
+    
+    let textToSubmit = etherealInput.value.trim();
+    if (textToSubmit === "") return; // Don't submit blank thoughts
+    
+    // Save to Firebase
+    let newKey = dbRef.push().key; 
+    let updates = {}; 
+    updates[newKey] = textToSubmit;
+    
+    dbRef.update(updates).then(() => {
+      // Clear the input and remove the glow once saved
+      etherealInput.value = ""; 
+      etherealInput.classList.remove('flare');
+      
+      // Defocus the input so the user can watch their new firefly fly away
+      etherealInput.blur(); 
+    }).catch(error => {
+      console.error("Firebase saving error: ", error);
+    });
+  }
+});
 
 // --- The Animation Loop ---
-function animate() {
-  // Loop through every memory that has been pulled from Firebase
-  activeMemories.forEach(mem => {
-    if (mem.isCaptured) return; // Freeze movement if the user is hovering over it
 
-    // Math for the butterfly "flutter" cadence
+function animate() {
+  activeMemories.forEach(mem => {
+    if (mem.isCaptured) return; // Freeze movement if hovered
+
+    // Math for the firefly "darting" cadence
     mem.angle += mem.flutterSpeed;
     let flutterX = Math.cos(mem.angle) * 0.8;
     let flutterY = Math.sin(mem.angle * 2) * 0.8;
@@ -116,18 +126,16 @@ function animate() {
     mem.x += mem.vx + flutterX;
     mem.y += mem.vy + flutterY;
 
-    // Bounding box logic (bounce softly off screen edges)
-    // We use offsetWidth/Height so it calculates the actual size of the text box
+    // Bounding box logic (bounce safely off screen edges)
     if (mem.x <= 0 || mem.x + mem.offsetWidth >= window.innerWidth) mem.vx *= -1;
     if (mem.y <= 0 || mem.y + mem.offsetHeight >= window.innerHeight) mem.vy *= -1;
 
-    // Keep them safely on screen
+    // Keep them safely on screen so they don't get stuck
     mem.x = Math.max(0, Math.min(mem.x, window.innerWidth - mem.offsetWidth));
     mem.y = Math.max(0, Math.min(mem.y, window.innerHeight - mem.offsetHeight));
 
-    // Apply movement and a slight tilt based on horizontal direction
-    let tilt = (mem.vx + flutterX) * 2; 
-    mem.style.transform = `translate(${mem.x}px, ${mem.y}px) rotate(${tilt}deg)`;
+    // Move the firefly (Removed the old butterfly rotation)
+    mem.style.transform = `translate(${mem.x}px, ${mem.y}px)`;
   });
 
   // Loop to next frame
