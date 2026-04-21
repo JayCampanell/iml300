@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Gentrification</title>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+
+  <style>
+    #draggable {
+      display: inline-block;
+      cursor: move;
+      border: solid 2px blue;
+      width: 100px;
+    }
+
+    #droppable {
+      width: 900px;
+      height: 600px;
+      padding: 0.5em;
+      border: 4px solid red;
+    }
+
+    #droppable.ui-state-highlight {
+      background: yellow !important;
+    }
+  </style>
+
+  <script>
+    $(function () {
+      $("#draggable").draggable();
+
+      $("#droppable").droppable({
+        accept: "#draggable",
+        drop: function (event, ui) {
+          $(this)
+            .addClass("ui-state-highlight")
+            .find("p")
+            .text("Dropped!");
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="draggable">
+    <img src="assets/brooklyn-1.png" width="100%">
+  </div>
+
+  <div id="droppable">
+    <p>find</p>
+  </div>
+</body>
+</html>

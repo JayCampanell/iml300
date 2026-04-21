@@ -5,6 +5,20 @@
     justify-content: center;
     flex-direction: column;
     text-justify: center;
+    margin: 0;
+}
+
+
+.center pre {
+    margin-top: 0;
+}
+
+#city-display {
+    margin-bottom: 0; 
+}
+
+.center {
+    margin-top: 0;
 }
 
 .center a{
@@ -16,3 +30,95 @@
   src: url(assets/Kobata-Regular.woff2);
 }
 
+/* GENERATED WITH GEMINI */
+/* 1. The Track */
+/* Basic styling so they look good stacked */
+/* Removes default browser margins */
+
+/* 1. The Track: JS will dynamically set this height later */
+/* 1. The Track: JS will dynamically set this height later */
+.directional-scroll-track {
+  position: relative;
+  width: 100%;
+}
+
+/* 2. The Camera: Locks to the screen */
+.sticky-camera {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #000; /* Looks nice behind fading images */
+}
+
+/* 3. The Images: Stacked and ready to be moved */
+.sticky-camera img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  /* Start them all invisible and pushed down */
+  opacity: 0;
+  transform: translateY(20%); 
+  will-change: transform, opacity; /* Tells browser to optimize these properties */
+}
+
+.year-display {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index: 999; /* Ensures it is always above the images */
+  
+  color: orange;
+  font-family: titleFont;
+  font-size: 5rem;
+  font-weight: bold;
+  margin: 0;
+  
+  /* A strong drop shadow ensures it is readable even if the image behind it is white */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  
+  /* Prevents the text from accidentally blocking clicks/swipes */
+  pointer-events: none; 
+}
+
+.text-display {
+  position: absolute;
+  bottom: 90px;
+  right: 45vw;
+  z-index: 999; /* Ensures it is always above the images */
+  
+  color: rgb(245, 232, 81);
+  font-family: sans-serif;
+  font-size: 3rem;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  
+  /* A strong drop shadow ensures it is readable even if the image behind it is white */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  
+  /* Prevents the text from accidentally blocking clicks/swipes */
+  pointer-events: none; 
+}
+
+#city-display {
+            height: 10px; 
+            font-size: 90px;
+            font-family: titleFont;
+            color: green;
+            font-weight: bold;
+            text-align: center;
+
+            
+        }
+        
+        /* Optional: Makes the hoverable areas stand out slightly */
+.city-link {
+    text-decoration: none;
+    color: #ff5555; /* Changes the link color so they are easier to find */
+}
