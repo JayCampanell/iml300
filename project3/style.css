@@ -69,7 +69,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  
+  pointer-events: none;
   /* Start them all invisible and pushed down */
   opacity: 0;
   transform: translateY(20%); 
@@ -90,7 +90,6 @@
   
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   
-  /* Prevents the text from accidentally blocking clicks/swipes */
   pointer-events: none; 
 }
 
@@ -111,6 +110,17 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 
   pointer-events: none; 
+}
+
+.back-button {
+  position: absolute;
+  z-index: 1000;
+  color: orange;
+  font-family: titleFont;
+  font-size: 29px;
+  bottom: 20px; /* Adjust this to move it up or down */
+  left: 50%; /* Pushes to the middle */
+  transform: translateX(-50%);
 }
 
 #display {
@@ -245,5 +255,55 @@
       animation: shake 0.4s;
       background-color: #ffb3b3 !important;
   }
+
+  #quote-mark {
+    color: orange;
+    background-color: white;
+    font-size: 25px;
+  }
+
+  .para-fade {
+    font-size: 21px;
+    text-align: center;
+    opacity: 0; 
+    animation: smoothFadeUp 1s ease forwards; 
+  }
+
+@keyframes smoothFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(15px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.center .para-fade:nth-child(1) {
+    animation-delay: 0.8s; 
+}
+
+.center .para-fade:nth-child(3) {
+    animation-delay: 2.1s; 
+    background-color: white; 
+    color: orange; 
+    font-size: 23px;
+}
+
+.center .para-fade:nth-child(5) {
+    animation-delay: 4s; 
+}
+.center .para-fade:nth-child(8) {
+    animation-delay: 6s; 
+    font-family: titleFont;
+    font-size: 23px;
+}
+
+#game-info {
+  color: orange;
+  font-family: titleFont;
+  font-size: 29px
+}
 
   
