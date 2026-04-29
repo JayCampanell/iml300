@@ -2,17 +2,53 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Gentrification</title>
+    <title>  When a curated, network internet taste makes it to the real world, who is it for?</title>
     <!--Update with your name-->
     <link rel = "stylesheet" href = "style.css"></link>
+    <script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.js"></script>
+    <script src="p5_bg_sketch.js"></script>
+
+    <style>
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; 
+          }
+    </style>
+
   </head>
 
   <body>
+    <div id = 'display' style = "font-size:180px; height: 10px; color: orange;"></div>
+    <br>
+    <br>
     <div class = 'center'>
-        <h1 style = "font-family: titleFont; font-size: 200px; color: green; margin-bottom: 20px;">
-            Global Homogenization & Gentrification
-        </h1>
-        <a style = "font-family: titleFont; font-size: 40px" href = map.html>view the map</a>
+        <h1 style = "font-family: titleFont; font-size: 180px; color: green; margin-bottom: 20px;">
+            When a curated, network internet taste makes it t<a href = "map.html">o</a> the real w<a href = "map.html">o</a>rld, wh<a href = "map.html">o</a> is it f<a href = "map.html">o</a>r?
+            
     </div>
 
   </body>
+
+  <script>
+  // get the div where text is supposed to be displayed
+    const displayElement = document.getElementById("display");
+    
+    // get all the links
+    const links = document.querySelectorAll("a");
+
+    // add hover events for each link
+    links.forEach(link => {
+        link.addEventListener("mouseenter", function() {
+            displayElement.innerText = "Explore";
+        });
+
+        // when mouse leaves clear div
+        link.addEventListener("mouseleave", function() {
+            displayElement.innerText = "";
+        });
+    });
+</script>
+            

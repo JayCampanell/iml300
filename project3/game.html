@@ -3,183 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Mapper</title>
-    
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
+    <title>  When a curated, network internet taste makes it to the real world, who is it for?</title>
+    <link rel = "stylesheet" href = "style.css"></link>
 
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        body{
             font-family: sans-serif;
             display: flex;
         }
-
-        /* Sidebar for the Image Grid */
-        #sidebar {
-            width: 350px;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            border-right: 2px solid #ccc;
-        }
-
-        #instructions {
-            padding: 20px;
-            background: #fff;
-            border-bottom: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        #instructions h3 {
-            margin: 0 0 10px 0;
-            color: #333;
-        }
-
-        #instructions p {
-            margin: 0;
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* The Grid Itself */
-        #image-grid {
-            padding: 10px;
-            overflow-y: auto;
-            flex-grow: 1;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            align-content: start;
-        }
-
-        .grid-item {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            cursor: pointer;
-            border: 3px solid transparent;
-            border-radius: 4px;
-            transition: transform 0.1s, border-color 0.1s;
-            background-color: #eee; /* Placeholder color while loading */
-        }
-
-        .grid-item:hover {
-            transform: scale(1.02);
-        }
-
-        /* State Classes */
-        .grid-item.selected {
-            border-color: #0078D7;
-            box-shadow: 0 0 10px rgba(0, 120, 215, 0.5);
-        }
-
-        .grid-item.placed {
-            opacity: 0.3;
-            pointer-events: none; /* Prevents selecting it again */
-            filter: grayscale(100%);
-        }
-
-        /* The Map Area */
-        #map {
-            flex-grow: 1;
-            height: 100%;
-        }
-
-        /* Customizes the image inside the map popup */
-        .leaflet-popup-content img {
-            width: 150px;
-            height: auto;
-            border-radius: 4px;
-        }
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
 </head>
 <body>
 
     <div id="sidebar">
         <div id="instructions">
-            <h3>Map the Photos</h3>
-            <p>1. Click a photo in the grid.<br>2. Click on the map to place it.</p>
+            <h3>Spot the Differences</h3>
+            <p>Match the storefront to its respective city.</p>
         </div>
         <div id="image-grid"></div>
     </div>
 
-    <div id="map"></div>
+    <div id="drop-area"></div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // 1. Initialize the Map (Centered on the US)
-        const map = L.map('map').setView([39.8283, -98.5795], 4);
-
-        // 2. State Variables
-        let currentSelectedImage = null; 
-        let currentSelectedSrc = null;   
-
-        // ==========================================
-        // 3. YOUR ASSET LIST (Update these filenames)
-        // ==========================================
         const myImages = [
-            'assets/stores/store1.jpg',
-            'assets/stores/store2.jpg',
-            'assets/stores/store3.jpg',
-            'assets/stores/store4.webp',
-            'assets/stores/store5.jpg',
-            'assets/stores/store6.jpg',
-            'assets/stores/store7.jpg',
-            'assets/stores/store7.webp',
+            { src: 'assets/stores/store1.jpg', targetCity: 'Stockholm' },
+            { src: 'assets/stores/store2.jpg', targetCity: 'Chiang Mai' },
+            { src: 'assets/stores/store3.jpg', targetCity: 'Seoul' },
+            { src: 'assets/stores/store4.webp', targetCity: 'Geneva' },
+            { src: 'assets/stores/store5.jpg', targetCity: 'Incheon' },
+            { src: 'assets/stores/store6.jpg', targetCity: 'Paris' },
+            { src: 'assets/stores/store7.jpg', targetCity: 'Tokyo' },
+            { src: 'assets/stores/store7.webp', targetCity: 'New York' },
+            { src: 'assets/stores/store8.webp', targetCity: 'Berlin' },
+
+
         ];
 
-        // 4. Load the Images into the Grid automatically
-        const imageGrid = document.getElementById('image-grid');
+        const cities = ['New York', 'Paris', 'Incheon', 'Tokyo','Seoul','Geneva','Chiang Mai','Stockholm', 'Berlin'];
 
-        myImages.forEach(imagePath => {
-            const imgElement = document.createElement('img');
-            imgElement.src = imagePath;
-            imgElement.className = 'grid-item';
-            
-            // Click event to select the image
-            imgElement.addEventListener('click', () => {
-                selectImage(imgElement, imagePath);
+        const $imageGrid = $('#image-grid');
+        const $dropArea = $('#drop-area');
+
+        // dynamically create images in grid
+        myImages.forEach((imgData) => {
+            // Create the image element and store the correct city as a data attribute
+            const $img = $('<img>', {
+                src: imgData.src,
+                class: 'grid-item',
+                'data-correct-city': imgData.targetCity
             });
-
-            imageGrid.appendChild(imgElement);
-        });
-
-        // 5. Handle Selection Logic
-        function selectImage(imgElement, imageUrl) {
-            if (currentSelectedImage) {
-                currentSelectedImage.classList.remove('selected');
-            }
-
-            currentSelectedImage = imgElement;
-            currentSelectedSrc = imageUrl;
-            currentSelectedImage.classList.add('selected');
-        }
-
-        // 6. Handle Map Clicking (Placing the Image)
-        map.on('click', function(e) {
-            if (!currentSelectedSrc) return; // Do nothing if no image is selected
-
-            // Create a marker at the clicked coordinates
-            const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-
-            // Bind a popup to the marker containing the image
-            marker.bindPopup(`<img src="${currentSelectedSrc}" alt="Placed image">`).openPopup();
-
-            // Mark the image as placed in the grid
-            currentSelectedImage.classList.remove('selected');
-            currentSelectedImage.classList.add('placed');
             
-            // Clear current selection
-            currentSelectedImage = null;
-            currentSelectedSrc = null;
+            $imageGrid.append($img);
         });
-    </script>
+
+        // dynamically create dropboxes based on available cities
+        cities.forEach(city => {
+            const $box = $('<div>', {
+                class: 'drop-box',
+                text: city,
+                'data-city-name': city
+            });
+            
+            $dropArea.append($box);
+        });
+
+
+        // Make the images draggable
+        $('.grid-item').draggable({
+            zIndex: 1000,
+            start: function(event, ui) {
+                // add styling to make it look like it is floating
+                ui.helper.css({
+                    transform: 'scale(1.05)',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+                    opacity: '1'
+                });
+            },
+            // revert to srtart if the item is dropped or if it is in the wrong box
+            revert: function(droppedElement) {
+                if (!droppedElement) {
+                    return true; 
+                }
+
+                const targetCity = droppedElement.data('city-name');
+                const correctCity = $(this).data('correct-city'); 
+
+                // check if it is right
+                if (targetCity === correctCity) {
+                    return false; 
+                } else {
+                    // shake screen if wrong
+                    $('body').addClass('error-shake');
+                    $('sidebar').addClass('error-shake');
+                    $('instructions').addClass('error-shake')
+                    setTimeout(() => {
+                        $('body').removeClass('error-shake');
+                        $('sidebar').removeClass('error-shake');
+                        $('instructions').addClass('error-shake');
+                    }, 400);
+                    
+                    return true; // Snap the image back to the grid
+                }
+            }
+        });
+
+        $('.drop-box').droppable({
+            accept: '.grid-item',
+            hoverClass: 'drag-over', 
+            drop: function(event, ui) {
+                const targetCity = $(this).data('city-name');
+                const correctCity = ui.draggable.data('correct-city');
+
+                // fade away if correct city
+                if (targetCity === correctCity) {
+                    // ui.draggable refers to the original grid item, not the clone
+                    ui.draggable.addClass('fade-away');
+                }
+            }
+    });
+</script>
 </body>
 </html>

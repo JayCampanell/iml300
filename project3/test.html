@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image City Mapper</title>
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: sans-serif;
+            display: flex;
+            background-color: #fff;
+            transition: background-color 0.2s; /* Smooth transition for the red flash */
+        }
+
+        /* Sidebar for the Image Grid */
+        #sidebar {
+            width: 350px;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #ccc;
+            z-index: 10; /* Keep above the shake background */
+        }
+
+        #instructions {
+            padding: 20px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        #instructions h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        #instructions p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* The Grid Itself */
+        #image-grid {
+            padding: 10px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            align-content: start;
+        }
+
+        .grid-item {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            cursor: grab; /* Indicates draggable */
+            border: 3px solid transparent;
+            border-radius: 4px;
+            background-color: #ccc; /* Placeholder color */
+            transition: transform 0.1s, opacity 0.5s ease;
+        }
+
+        .grid-item:active {
+            cursor: grabbing;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.02);
+        }
+
+        /* Success State */
+        .fade-away {
+            opacity: 0 !important;
+            pointer-events: none; /* Prevents further interaction */
+            transform: scale(0.8);
+        }
+
+        /* The Drop Zones Area */
+        #drop-area {
+            flex-grow: 1;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            align-content: center;
+            background-color: transparent;
+        }
+
+        .drop-box {
+            border: 3px dashed #888;
+            border-radius: 10px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #555;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .drop-box.drag-over {
+            background-color: #e0f7fa;
+            border-color: #0078D7;
+            transform: scale(1.05);
+        }
+
+        /* Error Shake Animation */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-3px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .error-shake {
+            animation: shake 0.4s;
+            background-color: #ffb3b3 !important; /* Screen turns red */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <div id="instructions">
+            <h3>Sort the Photos</h3>
+            <p>Drag a photo from the grid and drop it into the correct city box.</p>
+        </div>
+        <div id="image-grid"></div>
+    </div>
+
+    <div id="drop-area"></div>
+
+    <script>
+        // ==========================================
+        // 1. DATA STRUCTURE (Update paths AND cities)
+        // ==========================================
+        // Notice how each image now knows which city it belongs to.
+        const myImages = [
+            { src: 'assets/stores/store1.jpg', targetCity: 'New York' },
+            { src: 'assets/stores/store2.jpg', targetCity: 'Los Angeles' },
+            { src: 'assets/stores/store3.jpg', targetCity: 'Chicago' },
+            { src: 'assets/stores/store4.webp', targetCity: 'Miami' },
+            { src: 'assets/stores/store5.jpg', targetCity: 'New York' },
+            { src: 'assets/stores/store6.jpg', targetCity: 'Los Angeles' },
+            { src: 'assets/stores/store7.jpg', targetCity: 'Chicago' },
+            { src: 'assets/stores/store7.webp', targetCity: 'Miami' },
+        ];
+
+        // The list of cities that will become drop boxes
+        const cities = ['New York', 'Los Angeles', 'Chicago', 'Miami'];
+
+        // ==========================================
+        // 2. SETUP THE INTERFACE
+        // ==========================================
+        const imageGrid = document.getElementById('image-grid');
+        const dropArea = document.getElementById('drop-area');
+
+        // Render draggable images
+        myImages.forEach((imgData, index) => {
+            const imgElement = document.createElement('img');
+            imgElement.src = imgData.src;
+            imgElement.className = 'grid-item';
+            
+            // Enable HTML5 Drag and Drop
+            imgElement.draggable = true;
+            
+            // Store unique ID and target city on the element so we can verify it later
+            imgElement.dataset.id = index;
+            imgElement.dataset.city = imgData.targetCity;
+
+            // Handle the start of the drag
+            imgElement.addEventListener('dragstart', (e) => {
+                // Pass the ID and the correct city in the drag event data
+                const dragPayload = {
+                    id: index,
+                    correctCity: imgData.targetCity
+                };
+                e.dataTransfer.setData('application/json', JSON.stringify(dragPayload));
+            });
+
+            imageGrid.appendChild(imgElement);
+        });
+
+        // Render drop boxes
+        cities.forEach(city => {
+            const box = document.createElement('div');
+            box.className = 'drop-box';
+            box.innerText = city;
+
+            // Allow elements to be dropped here by preventing default behavior
+            box.addEventListener('dragover', (e) => {
+                e.preventDefault(); 
+            });
+
+            // Visual feedback when hovering over a box
+            box.addEventListener('dragenter', (e) => {
+                e.preventDefault();
+                box.classList.add('drag-over');
+            });
+
+            // Remove visual feedback when leaving the box
+            box.addEventListener('dragleave', () => {
+                box.classList.remove('drag-over');
+            });
+
+            // Handle the drop event
+            box.addEventListener('drop', (e) => {
+                e.preventDefault();
+                box.classList.remove('drag-over');
+
+                // Get the data we attached to the image during 'dragstart'
+                const dragData = e.dataTransfer.getData('application/json');
+                if (!dragData) return;
+
+                const { id, correctCity } = JSON.parse(dragData);
+
+                // Check if the dropped image belongs to this box's city
+                if (correctCity === city) {
+                    // SUCCESS: Fade the image away
+                    const correctImage = document.querySelector(`img[data-id="${id}"]`);
+                    if (correctImage) {
+                        correctImage.classList.add('fade-away');
+                    }
+                } else {
+                    // FAILURE: Shake the screen and turn it red
+                    document.body.classList.add('error-shake');
+                    
+                    // Remove the class after the animation finishes (400ms) so it can trigger again
+                    setTimeout(() => {
+                        document.body.classList.remove('error-shake');
+                    }, 400);
+                }
+            });
+
+            dropArea.appendChild(box);
+        });
+    </script>
+</body>
+</html>

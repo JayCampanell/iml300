@@ -8,7 +8,7 @@
   </head>
 
 <body>
-    <div id = 'city-display'></div>
+    <div id = 'display'></div>
 
     <div class = 'center'>
         <pre>
@@ -62,23 +62,20 @@
 </body>
 
 <script>
-// 1. Grab the container where the text will show up
-    const displayElement = document.getElementById("city-display");
+  // get the div where text is supposed to be displayed
+    const displayElement = document.getElementById("display");
     
-    // 2. Grab all the links that have the class 'city-link'
+    // get all the links
     const links = document.querySelectorAll(".city-link");
 
-    // 3. Loop through each link and add hover events
+    // add hover events for each link
     links.forEach(link => {
-        // When the mouse enters the link
         link.addEventListener("mouseenter", function() {
-            // Get the text from the data-title attribute and put it in the div
             displayElement.innerText = this.getAttribute("data-title");
         });
 
-        // When the mouse leaves the link
+        // when mouse leaves clear div
         link.addEventListener("mouseleave", function() {
-            // Empty the div so the title disappears
             displayElement.innerText = "";
         });
     });
